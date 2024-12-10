@@ -77,3 +77,25 @@ export class CustomSet<T extends Hashable> {
         return this.map.values();
     }
 }
+
+export class Tuple<T> {
+    first: T;
+    second: T;
+
+    constructor(first: T, second: T) {
+        this.first = first;
+        this.second = second;
+    }
+
+    hashCode(): string {
+        return `${this.first}:${this.second}`;
+    }
+
+    equals(other: Tuple<T>): boolean {
+        return other instanceof Tuple && this.first === other.first && this.second === other.second;
+    }
+
+    toString(): string {
+        return `${this.first},${this.second}`
+    }
+}
