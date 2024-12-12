@@ -41,29 +41,15 @@ function part2(input: string[][]): number {
 function numberOfUniqueEdges(edge: EdgeNode, edgesSet: CustomSet<EdgeNode>): number {
     const posibleMoves: number[][] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
     const check: string[] = [];
-    let calculatedNeighbour: number = 0;
-    let numberOfEdges: number = 0;
     for (let move of posibleMoves) {
         const x: number = edge.node.i + move[0];
         const y: number = edge.node.j + move[1];
         const checkEdge: EdgeNode = new EdgeNode(new Node(x, y), []);
         if (edgesSet.has(checkEdge) && edgesSet.get(checkEdge)?.calculated) {
-            calculatedNeighbour++;
             check.push(...edgesSet.get(checkEdge)!.edges);
         }
     }
-    if (calculatedNeighbour === 0) {
-        numberOfEdges = edge.edges.length;
-    } else {
-        // if 2 neighboursh but not a corner
-        // RRRRX
-        // RRRRX
-        // XXRRR
-        // XXRXX
-        // This case R on positon 2, 3
-        numberOfEdges = edge.edges.filter(x => !check.includes(x)).length || 0;
-    }
-    return numberOfEdges;
+    return edge.edges.filter(x => !check.includes(x)).length;
 }
 
 function constructRegions2(seen: CustomSet<Node>, input: string[][], regions: Map<string, DiffTuple<number, CustomSet<EdgeNode>>>): void {
