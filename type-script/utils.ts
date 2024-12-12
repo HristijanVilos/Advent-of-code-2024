@@ -99,3 +99,25 @@ export class Tuple<T> {
         return `${this.first},${this.second}`
     }
 }
+
+export class DiffTuple<T, G> {
+    first: T;
+    second: G;
+
+    constructor(first: T, second: G) {
+        this.first = first;
+        this.second = second;
+    }
+
+    hashCode(): string {
+        return `${this.first}:${this.second}`;
+    }
+
+    equals(other: DiffTuple<T, G>): boolean {
+        return other instanceof DiffTuple && this.first === other.first && this.second === other.second;
+    }
+
+    toString(): string {
+        return `${this.first},${this.second}`
+    }
+}
